@@ -25,7 +25,7 @@ public abstract class PersistentProjectileMixin extends ProjectileEntity {
 
     @Inject(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V"))
     private void injectFlameKillCredit(EntityHitResult entityHitResult, CallbackInfo ci) {
-        if (this.hasFlame && this.getOwner() instanceof LivingEntity owner) {
+        if (this.hasFlame && entityHitResult.getEntity() instanceof LivingEntity && this.getOwner() instanceof LivingEntity owner) {
             ((EntityAttackerInterface)entityHitResult.getEntity()).setAttackerFireAspect(owner);
         }
     }
